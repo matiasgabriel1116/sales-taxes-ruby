@@ -1,0 +1,26 @@
+# Bundler
+/.bundle/
+/vendor/bundle/
+
+# RSpec / test artifacts
+/coverage/
+/tmp/
+/spec/examples.txt
+.rspec_status
+
+# Ruby tools
+/.rubocop-*
+/.rubocop_cache
+/.byebug_history
+/.yardoc/
+/pkg/
+*.gem
+
+# Logs
+/log/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
