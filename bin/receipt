@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
+
+require 'sales_taxes/parser'
+require 'sales_taxes/tax_policies'
+require 'sales_taxes/tax_calculator'
+require 'sales_taxes/receipt'
+require 'sales_taxes/formatter'
+
+# Read entire STDIN or files passed as args
+lines = ARGF.each_line.to_a.reject { |l| l.strip.empty? }
+
+parser = SalesTaxes::Parser.new
+line_items = parser.parse(lines)
+
+policies = [SalesTaxes::BasicSalesTax.new, SalesTaxes::ImportDuty.new]
+calculator = SalesTaxes::TaxCalculator.new(policies: policies)
+
+receipt = SalesTaxes::Receipt.build(line_items, calculator: calculator)
+
+puts SalesTaxes::Formatter.new.format(receipt)
